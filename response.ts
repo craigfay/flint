@@ -1,13 +1,13 @@
 /**
- * This file is concerned with adapting outgoing Flint style ResponseMaterials...
- * ...to their deno_std/http counterpart
+ * This file is concerned with adapting outgoing Flint style `ResponseMaterials`...
+ * ...to their deno_std/http counterpart, `Response`, implemented by `HttpResponse`
  */
 
 import { Response } from "./deps.ts"
+import { ErrorStatus } from "./types.ts";
 
-function convertStatus(num) {
-  // TODO whitelist status codes
-  return num;
+function convertStatus(status:ErrorStatus) {
+  return status;
 }
 
 /**

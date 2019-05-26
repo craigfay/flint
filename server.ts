@@ -35,13 +35,3 @@ async function main() {
 
 main()
 console.log('listening at', addr)
-
-// This is what I want as a user
-interface HttpRequest {
-  raw: string;
-  proto?: string;
-  url: string;
-  query: object;
-  headers: object;
-  body: object;
-}

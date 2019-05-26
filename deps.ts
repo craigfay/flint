@@ -6,4 +6,4 @@ export {
   Response,
   serve,
   ServerRequest
-} from "https://deno.land/std@v0.6/http/server.ts";
+} from "https://deno.land/std/http/server.ts";
