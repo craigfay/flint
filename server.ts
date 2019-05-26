@@ -1,4 +1,5 @@
-import { serve } from "https://deno.land/std@v0.6/http/server.ts"
+import { serve } from "./deps.ts"
+import { httpResponse } from "./response.ts"
 
 /**
  * Criticism:
@@ -16,33 +17,17 @@ async function _raw(req) {
   return await d.decode(req.r.buf)
 }
 
-function makeHeaders(obj) {
-  const headers = new Headers()
-  Object.keys(obj).forEach(function(key) {
-    const value = obj[key]
-    headers.set(key, value);
-  })
-  return headers;
-}
-
-function makeBody(str) {
-  const e = new TextEncoder()
-  if (typeof str == 'string') {
-    return e.encode(str)
-  }
-  return e.encode(JSON.stringify(str))
-}
-
 async function main() {
   for await (const req of s) {
 
     const body = new TextDecoder().decode(await req.body())
     
-    const response = {
+    const response = httpResponse({
       status: 200,
-      headers: makeHeaders({ 'Content-Type': 'application/json' }),
-      body: makeBody({ foo: 'bar' }),
-    }
+      headers: { 'Content-Type': 'application/json' },
+      body: { foo: 'bar' },
+    })
+
     req.respond(response);
     // Remember setContentLength
   }
