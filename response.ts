@@ -1,5 +1,5 @@
 /**
- * This file is concerned with adapting outgoing Flint style HttpResponses...
+ * This file is concerned with adapting outgoing Flint style ResponseMaterials...
  * ...to their deno_std/http counterpart
  */
 
@@ -39,23 +39,33 @@ function convertBody(body:any):Uint8Array {
 }
 
 /**
- * Convert an HttpResponse object to the deno_std/http compatible equivalent
- * @param {HttpResponse} r
+ * Convert a ResponseMaterial object to the deno_std/http compatible equivalent
+ * @param {ResponseMaterial} r
  * @return {Response} The Response interface from deno_std/http
  */
-export function httpResponse(r:HttpResponse):Response {
-  return {
-    status: convertStatus(r.status),
-    headers: convertHeaders(r.headers),
-    body: convertBody(r.body),
+export class HttpResponse implements Response {
+  status: number;
+  headers: Headers;
+  body: Uint8Array;
+  constructor(r:ResponseMaterial) {
+    this.status = convertStatus(r.status);
+    this.headers = convertHeaders(r.headers);
+    this.body = convertBody(r.body);
   }
 }
 
+/**
+ * Headers passed in as ResponseMaterial
+ */
 export interface HttpHeaders {
   [key:string] : string;
 }
 
-export interface HttpResponse {
+/**
+ * This is the shape of objects that users of the module...
+ * ...can use to generate HTTP responses
+ */
+export interface ResponseMaterial {
   status: number;
   headers: HttpHeaders;
   body: any;

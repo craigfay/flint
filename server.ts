@@ -1,5 +1,5 @@
 import { serve } from "./deps.ts"
-import { httpResponse } from "./response.ts"
+import { HttpResponse } from "./response.ts"
 
 /**
  * Criticism:
@@ -22,7 +22,7 @@ async function main() {
 
     const body = new TextDecoder().decode(await req.body())
     
-    const response = httpResponse({
+    const response = new HttpResponse({
       status: 200,
       headers: { 'Content-Type': 'application/json' },
       body: { foo: 'bar' },
