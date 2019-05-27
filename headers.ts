@@ -1,4 +1,11 @@
 /**
+ * TODO research the `set-cookie` header
+ * TODO research the whitelisted header names below
+ * TODO maybe replace `nextLine()`
+ * TODO understand `extract`
+ */
+
+/**
  * Headers passed in as ResponseMaterial
  * TODO this needs to be re-evaluated for multi-instance headers
  */
