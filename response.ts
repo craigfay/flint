@@ -5,6 +5,7 @@
 
 import { Response } from "./deps.ts"
 import { ErrorStatus } from "./types.ts";
+import { HttpHeaders } from "./headers.ts";
 
 function convertStatus(status:ErrorStatus) {
   return status;
@@ -52,14 +53,6 @@ export class HttpResponse implements Response {
     this.headers = convertHeaders(r.headers);
     this.body = convertBody(r.body);
   }
-}
-
-/**
- * Headers passed in as ResponseMaterial
- * TODO this needs to be re-evaluated for multi-instance headers
- */
-export interface HttpHeaders {
-  [key:string] : string;
 }
 
 /**
