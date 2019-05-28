@@ -1,5 +1,6 @@
 import { serve } from "./deps.ts"
 import { HttpResponse } from "./response.ts"
+import { toString } from "./request.ts"
 
 /**
  * Criticism:
@@ -11,11 +12,6 @@ import { HttpResponse } from "./response.ts"
 
 const addr = '0.0.0.0:4000'
 const s = serve(addr)
-
-async function _raw(req) {
-  const d = new TextDecoder()
-  return await d.decode(req.r.buf)
-}
 
 async function main() {
   for await (const req of s) {
