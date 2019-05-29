@@ -10,24 +10,25 @@ import { toString } from "./request.ts"
  * I'd like ot see the entire request as a string, and have its constituents as properties
  */
 
-const addr = '0.0.0.0:4000'
-const s = serve(addr)
+export class HttpServer {
+  addr:string;
 
-async function main() {
-  for await (const req of s) {
-
-    const body = new TextDecoder().decode(await req.body())
-    
-    const response = new HttpResponse({
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: { foo: 'bar' },
-    })
-
-    req.respond(response);
-    // Remember setContentLength
+  constructor(addr:string) {
+    this.addr = addr;
   }
-}
 
-main()
-console.log('listening at', addr)
+  async start() {
+    const s = serve(this.addr);
+    for await (const req of s) {
+
+      const response = new HttpResponse({
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: { foo: 'bar' },
+      })
+  
+      req.respond(response);
+    }
+  }
+
+}
