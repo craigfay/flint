@@ -11,7 +11,7 @@ import { HttpHeaders } from "./headers.ts";
  * @param {ServerRequest} request the incoming request
  * This won't compile if the `request` argument is typed; why?
  */
-async function toString(request): Promise<string> {
+export async function toString(request): Promise<string> {
   const d = new TextDecoder()
   return await d.decode(request.r.buf)
 }

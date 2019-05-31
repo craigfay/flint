@@ -20,14 +20,7 @@ export class HttpServer {
   async start() {
     const s = serve(this.addr);
     for await (const req of s) {
-
-      const response = new HttpResponse({
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-        body: { foo: 'bar' },
-      })
-  
-      req.respond(response);
+      req.respond({ body: new TextEncoder().encode("Hello World\n") });
     }
   }
 
