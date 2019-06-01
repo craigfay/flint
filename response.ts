@@ -5,22 +5,25 @@
 
 import { Response } from "./deps.ts"
 import { ErrorStatus } from "./types.ts";
-import { HttpHeaders } from "./headers.ts";
 
 function convertStatus(status:ErrorStatus) {
   return status;
 }
 
 /**
- * Convert key value pairs to deno's top level Headers interface
+ * Convert `HttpHeaders` to deno's top level `Headers` interface
  * @param {HttpHeaders} headers
  * @return {Headers}
  */
-function convertHeaders(headers:HttpHeaders):Headers {
+function convertHeaders(headers:any):Headers {
   const conversion = new Headers();
   Object.keys(headers).forEach(function(key) {
-    const value = headers[key]
-    conversion.set(key, value);
+    const value = headers[key];
+    if (Array.isArray(value)) {
+      value.forEach(item => conversion.set(key, item))
+    } else {
+      conversion.set(key, value);
+    }
   });
   return conversion;
 }
@@ -61,6 +64,6 @@ export class HttpResponse implements Response {
  */
 export interface ResponseMaterial {
   status: number;
-  headers: HttpHeaders;
+  headers: any;
   body: any;
 }

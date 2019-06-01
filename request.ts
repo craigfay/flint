@@ -4,7 +4,6 @@
  */
 
 import { ServerRequest } from "./deps.ts";
-import { HttpHeaders } from "./headers.ts";
 
 /**
  * Return the raw http request as a utf8 string
@@ -24,6 +23,6 @@ interface HttpRequest {
   };
   url: string;
   query: object;
-  headers: HttpHeaders;
+  headers: any;
   body: object;
 }
